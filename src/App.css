@@ -1,38 +1,63 @@
-.App {
-  text-align: center;
+@font-face {
+  font-family: "AlbraSans";
+  src: url("./assets/fonts/AlbraSans/AlbraSansTRIAL-Regular.otf"),
+    url("./assets/fonts/AlbraSans/AlbraSansTRIAL-Regular-Italic.otf"),
+    url("./assets/fonts/AlbraSans/AlbraSansTRIAL-Black.otf"),
+    url("./assets/fonts/AlbraSans/AlbraSansTRIAL-Medium.otf"),
+    url("./assets/fonts/AlbraSans/AlbraSansTRIAL-Bold.otf");
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.link {
+  text-decoration: none;
+  
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.logo {
+  font-size: 1.5rem;
+  color: var(--black);
+  transition: 0.3s all;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.logo span {
+  color: var(--accent-dark);
+}
+
+.input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 2px solid var(--tertiary);
+  transition: 0.4s all;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: normal;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+.input:hover, .input:focus, input:active, input:focus-visible {
+  border: 2px solid var(--accent);  
+  outline: none;
+}
+
+
+.button {
+  height: 40px;
+  border-radius: 6px;
+  background-color: var(--accent);
+  border: none;
+  color: white;
+  font-size: 1rem;
+  font-family: "AlbraSans";
+  transition: 0.4s all;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.button:hover {
+  transform: translateY(-3px);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.button:active {
+  transform: translateY(0);
+  box-shadow: none;
 }

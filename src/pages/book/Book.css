@@ -1,0 +1,83 @@
+.bookdetail {
+    padding: 40px;
+    overflow-y: scroll;
+}
+
+.bookdetail__top{
+    display: flex;
+    justify-content: center;
+}
+.bookdetail__cover{
+    width: 200px;
+    object-fit: contain;
+}
+.bookdetail__meta{
+    width: 300px;
+    margin: 20px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.bookdetail__title{
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+.bookdetail__heading{
+    font-family: 'Montserrat';
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+.bookdetail__caption{
+    font-family: 'Montserrat';
+    display: block;
+    text-align: start;
+    margin-top: 1rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+.bookdetail__buttons{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.bookdetail__button{
+    width: 160px;
+    background-color: var(--black);
+}
+.bookdetail__button--icon{
+    height: 60%;
+    padding-left: 10px;
+    fill: var(--primary);
+}
+.bookdetail__actions{}
+.bookdetail__action--icon{
+    height: 24px;
+    padding: 4px;
+    background-color: var(--secondary);
+    border-radius: 50%;
+    margin-left: 6px;
+}
+.bookdetail__bottom{
+    background-color: var(--primary);
+    padding: 60px;
+    padding-top: 120px;
+    margin-top: -80px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    display: flex;
+}
+.bookdetail__left{
+    flex: 1;
+}
+.bookdetail__right{
+    flex: 1;
+    margin-left: 40px;
+}
+
+.bookdetail__right > .bookdetail__caption {
+    margin-bottom: 2rem;
+}
+
+.bookdetail__caption:last-child {
+    margin-bottom: 0;
+}
