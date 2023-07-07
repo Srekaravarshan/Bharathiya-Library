@@ -17,7 +17,7 @@ body {
   --primary: #f9f3ee;
   /* --secondary: #f1eee3; */
   --secondary: #f2e4cd;
-  --tertiary: #c8c5bb;
+  --tertiary: #f6c77c;
   --accent-pink: #c9585c;
   --accent: #d9aa63;
   /* --accent-dark: #b21319; */
@@ -25,4 +25,18 @@ body {
   /* --black: #4b4b4e; */
   --black: #2d1d15;
   --gray: rgba(221, 196, 159, 0.515);
+  --sidebar-size: 75px;
+  --topnav-size: 50px;
+}
+
+.mb-2 {
+  margin-bottom: 1rem;
+}
+
+.mb-1 {
+  margin-bottom: 0.6rem;
+}
+
+.mb-3 {
+  margin-bottom: 2rem;
 }

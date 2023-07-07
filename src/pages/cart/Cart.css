@@ -1,0 +1,38 @@
+.cart {
+    background-color: var(--secondary);
+    min-height: 100vh;
+}
+
+.cart__page {
+    margin: 25px;
+}
+
+
+.cart__book {
+    background-color: var(--primary);
+    border-radius: 6px;
+    display: flex;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.cart__book--cover {
+    height: 100px;
+    width: 66px;
+    object-fit: cover;
+}
+
+.cart__book--right {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.cart__checkout--btn {
+    display: block;
+    margin-top: 2rem;
+    padding: 0 10px;
+    font-family: 'Montserrat';
+}

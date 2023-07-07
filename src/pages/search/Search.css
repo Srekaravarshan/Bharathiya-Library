@@ -1,0 +1,91 @@
+.search {
+  min-height: 100vh;
+  background-color: var(--secondary);
+}
+
+.search__page {
+  margin: 20px;
+  position: relative;
+}
+
+.search__container {
+  position: relative;
+  width: 500px;
+  margin: 0 auto;
+}
+
+.home__search--icon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 18px;
+  fill: var(--black);
+
+}
+
+.home__search:hover {
+  border: 2px solid var(--accent);
+}
+
+.home__search {
+    width: 100%;
+    margin: 0 auto;
+  transition: 0.3s all;
+  border-radius: 10px;
+  padding-left: 40px;
+  background-color: transparent;
+  height: 40px;
+  font-family: "Montserrat";
+  border: 2px solid transparent;
+  background-color: var(--primary);
+}
+
+.suggestions {
+  position: absolute;
+  width: 500px;
+  background-color: var(--primary);
+  top: 43px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+
+}
+
+.suggestion {
+    font-family: 'Montserrat';
+    list-style: none;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+}
+
+.result__books {
+    display: block;
+    width: 100%;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.result__book {
+    float: left;
+    padding: 10px;
+    text-decoration: none;
+    transition: 0.4s all;
+    width: 140px;
+}
+
+.result__book:hover {
+    background-color: var(--primary);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+
+}
+
+.result__book--cover {
+    height: 200px;
+    width: 120px;
+}
+
+.result__book--title {
+    color: var(--black);
+}

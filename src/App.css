@@ -45,6 +45,7 @@
   border: none;
   color: white;
   font-size: 1rem;
+  cursor: pointer;
   font-family: "AlbraSans";
   transition: 0.4s all;
   display: flex;
@@ -61,3 +62,26 @@
   transform: translateY(0);
   box-shadow: none;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+  transition: 0.4s all;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+

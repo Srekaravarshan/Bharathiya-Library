@@ -3,6 +3,7 @@ import { ReactComponent as LinkArrow } from "./../../assets/icons/arrow-right-up
 import { ReactComponent as Search } from "./../../assets/icons/search-2-line.svg";
 import { gsap } from "gsap";
 import React, { useEffect, useRef } from "react";
+import Header from "../../components/widgets/Header";
 
 function Books() {
   let title = useRef();
@@ -15,10 +16,11 @@ function Books() {
     });
   });
   return (
-    <div className="books">
+    <div className="books page">
       <header className="books__header">
         <div className="books__header--left">
-          <h1 ref={(el) => (title = el)} className="title">
+        <Header title="Keep the story going..."/>
+          {/* <h1 ref={(el) => (title = el)} className="title">
             Keep the story going...
           </h1>
           <blockquote className="home__quote">
@@ -31,7 +33,7 @@ function Books() {
           <button className="home__start-read button">
             Start Reading
             <LinkArrow className="home__start-read--icon" />
-          </button>
+          </button> */}
         </div>
         <div className="books__header--right">
           <div className="books__person">
@@ -110,6 +112,14 @@ function Books() {
           />
           <caption className="book__name">Into the Woods</caption>
         </div>
+      </div>
+      <div className="books__footer">
+        <p className="books__footer--info">
+        🛈 Got chance to out the new collection of Harry Potter? It's a must read for any fan of the series, don't miss out!
+        </p>
+        <p className="books__footer--number">
+            <span>60</span>books
+        </p>
       </div>
     </div>
   );

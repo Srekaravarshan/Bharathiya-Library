@@ -1,0 +1,15 @@
+
+.image-header {
+    font-size: 1.5rem;
+    display: block;
+    text-align: start;
+    font-family: "Montserrat", sans-serif;
+    color: #540032;
+    background-repeat: repeat;
+    background-image: url(https://images.unsplash.com/photo-1615012553971-f7251c225e01?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80);
+    /* background-image: url(https://cdn.pixabay.com/photo/2017/07/03/20/17/abstract-2468874_960_720.jpg); */
+    background-attachment: fixed;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    margin-bottom: 20px;
+  }
