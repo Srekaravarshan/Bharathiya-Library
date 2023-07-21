@@ -55,7 +55,7 @@ function AppLayout({ timeline, ease }) {
     setMouseY(y);
   }
 
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, cart }, dispatch] = useStateValue();
   return (
     <>
       <div ref={(el) => (cursor = el)} className="cursor"></div>
@@ -92,6 +92,7 @@ function AppLayout({ timeline, ease }) {
                 />
               </Link>
               <Link className="nav__link " to="/cart">
+              <div className="nav__cart--notification">{cart.size}</div>
                 <BookmarkIcon
                   ref={(el) => (bookmarks = el)}
                   className="sidebar__icon nav__icon "

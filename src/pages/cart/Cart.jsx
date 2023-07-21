@@ -5,8 +5,9 @@ import { useStateValue } from "../../StateProvider";
 import Heading2 from "../../components/typography/Heading2";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
-import LoadingWidget from "../../components/widgets/LoadingWidget";
 import Caption from "../../components/typography/Caption";
+import Loading from "../loading/Loading";
+import CartBook from "../../components/widgets/CartBook";
 
 function Cart() {
   const [{ cart }, dispatch] = useStateValue();
@@ -18,23 +19,20 @@ function Cart() {
     const getBooks = async () => {
       const books = {};
       var totalPrice = 0;
-      console.log(cart);
       for (let [bookId, count] of cart) {
-          const book = await getDoc(doc(db, `/books/${bookId}`));
-          totalPrice += book.data().price;
-          books[bookId] = { book: book.data(), count: count };
+        const book = await getDoc(doc(db, `/books/${bookId}`));
+        totalPrice += Number(book.data().price);
+        books[bookId] = { book: book.data(), count: count };
       }
       setTotalCost(totalPrice);
       setBooks(books);
       setLoading(false);
-      console.log("orderedBooks");
-      console.log(orderedBooks);
     };
     getBooks();
-  }, [loading,]);
+  }, []);
 
   if (loading) {
-    return <LoadingWidget />;
+    return <Loading />;
   }
 
   return (
@@ -42,30 +40,30 @@ function Cart() {
       <div className="cart__page">
         <Heading className="cart__heading mb-2">Cart</Heading>
         {/* {orderedBooks.forEach((value))} */}
-        {Object.entries(orderedBooks).map(([bookId, value]) => (
-          <div className="cart__book">
-            <img src={value.book.cover_url} alt="" className="cart__book--cover" />
-            <div className="cart__book--right">
-            <div className="cart__book--top">
-                
-              <Heading2 className="cart__book--title">{value.book.title}</Heading2>
-              <Caption>{value.book.author}</Caption>
-            </div>
-              <div className="cart__book--bottom">
-              <Caption className="cart__book--count mb-1">Quantity: {value.count}</Caption>
-              <Heading2 className="cart__book--price">Price: ₹{value.book.price}</Heading2>
-              </div>
-            </div>
-          </div>
-        ))}
-        {
-          orderedBooks.length > 0 ? (
-        <button className="button cart__checkout--btn">
-          Checkout ₹{totalCost}
-        </button>
-
-          ) : <Caption>Your Cart is empty</Caption>
-        }
+        {Object.entries(orderedBooks).map(([bookId, value]) => {
+          return (
+            <CartBook
+              key={bookId}
+              value={value}
+              decrementCost={(cost) => {setTotalCost(totalCost - cost); console.log(totalCost)}}
+              incrementCost={(cost) => {setTotalCost(totalCost + cost); console.log(totalCost)}}
+              deleteBook={() => {
+                setTotalCost(totalCost - orderedBooks[bookId].book.price)
+                const updatedOrderedBooks = { ...orderedBooks };
+                delete updatedOrderedBooks[bookId];
+                console.log(updatedOrderedBooks);
+                setBooks(updatedOrderedBooks);
+              }}
+            />
+          );
+        })}
+        {totalCost > 0 ? (
+          <button type="button" className="button cart__checkout--btn">
+            Checkout ₹{totalCost}
+          </button>
+        ) : (
+          <Caption>Your Cart is empty</Caption>
+        )}
       </div>
     </div>
   );

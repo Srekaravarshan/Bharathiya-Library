@@ -4,16 +4,42 @@
 }
 
 .cart__page {
-    margin: 25px;
+    padding: 25px;
+    /* width: 500px; */
+    margin: auto;
 }
 
+.cart__book--left {
+    display: flex;
+}
+
+.cart__book--actions {
+    display: flex;
+    margin-top: 10px;
+}
+
+.cart__actions--button {
+    width: 20px;
+    height: 20px;
+}
+.cart__actions--icon {
+    height: 70%;
+    fill: black;
+}
+
+.cart__actions--count {
+    margin: 0 10px;
+}
 
 .cart__book {
     background-color: var(--primary);
+    flex-direction: column;
     border-radius: 6px;
     display: flex;
     padding: 10px;
     margin-bottom: 15px;
+    justify-content: space-between;
+    align-items: start;
 }
 
 .cart__book--cover {
@@ -35,4 +61,17 @@
     margin-top: 2rem;
     padding: 0 10px;
     font-family: 'Montserrat';
+}
+
+@media screen and (min-width: 600px) {
+    .cart__page {
+        width: 500px;
+    }
+}
+
+@media screen and (min-width:400px) {
+    .cart__book {
+        align-items: end;
+    flex-direction: row;
+    }
 }

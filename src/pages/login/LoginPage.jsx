@@ -51,7 +51,7 @@ function LoginPage() {
           const beforeLoginUrl = sessionStorage.getItem("beforeLogin");
           sessionStorage.removeItem("beforeLogin");
           if (beforeLoginUrl !== undefined && beforeLoginUrl !== "undefined") {
-            console.log(beforeLoginUrl);
+
             navigate(beforeLoginUrl);
           } else if (location.state?.from) {
             navigate(beforeLoginUrl);
@@ -85,7 +85,6 @@ function LoginPage() {
               beforeLoginUrl !== undefined &&
               beforeLoginUrl !== "undefined"
             ) {
-              console.log(beforeLoginUrl);
               navigate(beforeLoginUrl);
             } else {
               navigate("/");
@@ -103,10 +102,6 @@ function LoginPage() {
 
     await signInWithPopup(authentication, googleAuthProvider)
       .then(async (result) => {
-        // if (beforeLoginUrl !== undefined && beforeLoginUrl !== "undefined") {
-        //   console.log(beforeLoginUrl);
-        //   navigate(beforeLoginUrl);
-        // } else {
         const userData = {
           username: result.user.displayName,
           uid: result.user.uid,
@@ -121,7 +116,7 @@ function LoginPage() {
           user: userData,
         });
         if (beforeLoginUrl !== undefined && beforeLoginUrl !== "undefined") {
-          console.log(beforeLoginUrl);
+
           navigate(beforeLoginUrl);
         } else {
           navigate("/");
@@ -162,7 +157,7 @@ function LoginPage() {
             </div>
             <button onClick={async () => {
                   await signOutV(authentication).then(()=>{
-                    console.log('hhhh')
+
         dispatch({
           type: "SET_USER",
           user: null,
@@ -214,14 +209,7 @@ function LoginPage() {
                   : "Already have an account, Login"}
               </div>
             </div>
-            <div className="pss">
-              <h3 className="PS">
-                "I have built as much as possible within the given time. Many
-                functionalities are still in progress, and I will update the
-                website soon. Thank you for the opportunity."
-              </h3>
-              <h3 className="PS__author">- Srekaravarshan N K</h3>
-            </div>
+            
           </div>
           </div>
         )}

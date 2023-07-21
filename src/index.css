@@ -26,6 +26,7 @@ body {
   --black: #2d1d15;
   --gray: rgba(221, 196, 159, 0.515);
   --sidebar-size: 75px;
+  --sidebar-size-sm: 50px;
   --topnav-size: 50px;
 }
 

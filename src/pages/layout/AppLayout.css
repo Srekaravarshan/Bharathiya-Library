@@ -4,10 +4,9 @@
   overflow-x: hidden;
 }
 
-
 .page {
-    padding-left: var(--sidebar-size);
-    padding-top: var(--topnav-size);
+  padding-left: var(--sidebar-size-sm);
+  padding-top: var(--topnav-size);
 }
 
 .sidebar {
@@ -18,11 +17,20 @@
   justify-content: space-between;
   padding: 0 20px;
   position: fixed;
-  width: var(--sidebar-size);
   top: 0;
   left: 0;
   height: 90vh;
   margin: 5vh 0;
+  width: var(--sidebar-size-sm);
+}
+
+@media screen and (min-width: 490px) {
+  .page {
+  padding-left: var(--sidebar-size);
+  }
+  .sidebar {
+    width: var(--sidebar-size);
+  }
 }
 
 .sidebar::after {
@@ -50,6 +58,7 @@
 }
 
 .nav__link {
+  position: relative;
   display: block;
 }
 
@@ -108,7 +117,7 @@
 
 .layout__top-nav {
   z-index: 100;
-    padding-left: 75px;
+  padding-left: 75px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -118,7 +127,6 @@
   right: 0;
   height: var(--topnav-size);
 }
-
 
 .layout__profile {
   display: flex;
@@ -131,8 +139,8 @@
 }
 
 .layout__profile--image {
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   border-radius: 50%;
   object-fit: cover;
   margin-right: 10px;
@@ -140,4 +148,23 @@
 
 .layout__profile--name {
   color: var(--black);
+}
+
+.nav__cart--notification {
+  height: 16px;
+  min-width: 16px;
+  z-index: 4;
+  font-family: "Montserrat";
+  aspect-ratio: 1/1;
+  font-size: 10px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  background-color: var(--accent-pink);
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 50%;
 }

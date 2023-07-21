@@ -15,142 +15,112 @@ import { v4 as uuidv4 } from "uuid";
 function HomePage() {
   let canvas = useRef();
 
-  // useEffect(() => {
-  //   const textureLoader = new THREE.TextureLoader();
-  //   const normalTexture = textureLoader.load("/assets/NormalMap.png");
+  const [have3D, setHave3D] = useState(false);
 
-  //   const scene = new THREE.Scene();
-  //   // Objects
-  //   const geometry = new THREE.SphereGeometry(0.5, 12, 12);
-  //   // var geometry = new THREE.BufferGeometry().fromGeometry(sphereGeometry);
+  let camera, scene, renderer;
 
-  //   // var geometry = THREE.BufferGeometryLoader.fromGeometry( sphere );
-  //   // const geometry = new THREE.TorusGeometry(0.7, 0.2, 16, 100);
+  function init() {
+    scene = new THREE.Scene();
 
-  //   // Materials
+    renderer = new THREE.WebGLRenderer({
+      canvas: canvas,
+      alpha: true,
+    });
+    renderer.setSize(450, 450);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  }
 
-  //   const material = new THREE.MeshStandardMaterial();
-  //   material.metalness = 0.7;
-  //   material.roughness = 0.2;
-  //   material.normalMap = normalTexture;
-  //   material.color = new THREE.Color(0x292929);
+  function render() {
 
-  //   // Mesh
-  //   const sphere = new THREE.Mesh(geometry, material);
-  //   scene.add(sphere);
+    const texture = new THREE.TextureLoader();
+    const normal = texture.load("/assets/NormalMap.png");
 
-  //   // Lights
+    const geometry = new THREE.SphereGeometry(0.5, 12, 12);
 
-  //   const pointLight = new THREE.PointLight(0xffffff, 0.1);
-  //   pointLight.position.x = 2;
-  //   pointLight.position.y = 3;
-  //   pointLight.position.z = 4;
-  //   scene.add(pointLight);
+    const material = new THREE.MeshStandardMaterial();
+    material.metalness = 0.7;
+    material.roughness = 0.2;
+    material.normalMap = normal;
+    material.color = new THREE.Color(0x292929);
 
-  //   const pointLight2 = new THREE.PointLight(0xff0000, 2);
-  //   pointLight2.position.set(-1.86, 1, -0.4);
-  //   pointLight2.intensity = 30;
-  //   scene.add(pointLight2);
+    const sphere = new THREE.Mesh(geometry, material);
+    scene.add(sphere);
 
-  //   const pointLight3 = new THREE.PointLight(0xe1ff, 2);
-  //   pointLight3.position.set(2.13, -3, -1.98);
-  //   pointLight3.intensity = 20;
-  //   scene.add(pointLight3);
+    const pointLight = new THREE.PointLight(0xffffff, 0.1);
+    pointLight.position.x = 2;
+    pointLight.position.y = 3;
+    pointLight.position.z = 4;
+    scene.add(pointLight);
 
-  //   /**
-  //    * Sizes
-  //    */
-  //   const sizes = {
-  //     width: 450,
-  //     height: 450,
-  //   };
+    const pointLight2 = new THREE.PointLight(0xff0000, 2);
+    pointLight2.position.set(-1.86, 1, -0.4);
+    pointLight2.intensity = 30;
+    scene.add(pointLight2);
 
-  //   // window.addEventListener("resize", () => {
-  //   //   // Update sizes
-  //   //   sizes.width = 400;
-  //   //   sizes.height = 400;
+    const pointLight3 = new THREE.PointLight(0xe1ff, 2);
+    pointLight3.position.set(2.13, -3, -1.98);
+    pointLight3.intensity = 20;
+    scene.add(pointLight3);
 
-  //   //   // Update camera
-  //   //   camera.aspect = sizes.width / sizes.height;
-  //   //   camera.updateProjectionMatrix();
+    camera = new THREE.PerspectiveCamera(
+      75,
+      450 / 450,
+      0.1,
+      100
+    );
+    camera.position.x = 0;
+    camera.position.y = 0;
+    camera.position.z = 0.9;
+    scene.add(camera);
 
-  //   //   // Update renderer
-  //   //   renderer.setSize(sizes.width, sizes.height);
-  //   //   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  //   // });
-  //   /////////////////////
+    geometry.dispose();
+    material.dispose();
+    normal.dispose()
 
-  //   const camera = new THREE.PerspectiveCamera(
-  //     75,
-  //     sizes.width / sizes.height,
-  //     0.1,
-  //     100
-  //   );
-  //   camera.position.x = 0;
-  //   camera.position.y = 0;
-  //   camera.position.z = 0.9;
-  //   scene.add(camera);
+    const clock = new THREE.Clock();
 
-  //   // Controls
-  //   // const controls = new OrbitControls(camera, canvas)
-  //   // controls.enableDamping = true
+    const tick = () => {
+      const elapsedTime = clock.getElapsedTime();
+      sphere.rotation.y = 0.5 * elapsedTime;
+      renderer.render(scene, camera);
+      if (!have3D) {
+        renderer.dispose()
+      } else {
+        window.requestAnimationFrame(tick);
+      }
+    };
 
-  //   /**
-  //    * Renderer
-  //    */
-  //   const renderer = new THREE.WebGLRenderer({
-  //     canvas: canvas,
-  //     alpha: true,
-  //   });
-  //   renderer.setSize(sizes.width, sizes.height);
-  //   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    tick();
+  }
 
-  //   const clock = new THREE.Clock();
+  useEffect(() => {
+    if (have3D) {
+      init();
+      render();
+    } else {
+      // renderer.dispose()
+    }
+  }, [have3D]);
 
-  //   const tick = () => {
-  //     const elapsedTime = clock.getElapsedTime();
-
-  //     // Update objects
-  //     sphere.rotation.y = 0.5 * elapsedTime;
-  //     // Update Orbital Controls
-  //     // controls.update()
-
-  //     // Render
-  //     renderer.render(scene, camera);
-
-  //     // Call tick again on the next frame
-  //     window.requestAnimationFrame(tick);
-  //   };
-
-  //   tick();
-  // });
-
-  const [{ popularBooks }, dispatch] = useStateValue();
+  const [{ popularBooks, user }, dispatch] = useStateValue();
 
   const addBook = async () => {
-    const title = "Marvel Avengers Alliance";
-    const searchTerms = ["amazing", "spider", "avengers"];
-    const author = "Fabian Nicieza";
-    const searchauthor = "Fabian Nicieza";
-    const subject_people =
-      "Fabian Nicieza, Sam Wood, Paco Díaz";
+    const title = "Ready To Fire";
+    const searchTerms = ["science", "rocket", "nambi", "narayanan"];
+    const author = "Nambi Narayanan";
+    const searchauthor = "Nambi Narayanan";
+    const subject_people = "Nambi Narayanan, Arun Ram";
     const cover =
-      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1460560194i/29909667.jpg";
-    const price = "100";
+      "https://m.media-amazon.com/images/I/51Z+TFQzTnL.jpg";
+    const price = "592";
     const description =
-      "War has been declared on Earth by the Black Order...and the Avengers Alliance is the planet's only hope for survival! A Chitauri invasion means the core team is going to need reinforcements! Nova, Ms. Marvel, and Squirrel Girl join the fray—with a special appearance by the Guardians of the Galaxy! But will they be enough to stave off the invasions? It's all hands on deck for the Avengers Alliance as they combat a powerful new threat in the Redwood Forest. The battle for Earth reaches a critical stage in this epic adventure bridging the story between the smash hit mobile game Avengers Alliance and the upcoming Avengers Alliance 2!";
-    const subjects = [
-      "Comics",
-      "Graphic Novels",
-      "Marvel",
-      "Spider Man",
-      "Superheroes",
-    ];
-    const pages = "29";
-    const ISBN = "";
+      "A top scientist is falsely accused of selling space technology secrets. A police inspector's misadventure with a Maldivian woman results in a fabricated espionage case. A faction within a political party capitalises on the case to bring down a government. An intelligence agency obligingly plays into the hands of vested interests to slow down India's space programme. And a complex investigation finally proves the allegations untrue. In this riveting book, Isro scientist S Nambi Narayanan - who was falsely accused of espionage in ISRO spy case of the 1990s - and senior journalist Arun Ram meticulously unpick the ISRO spy case, revisit old material and discover new details to expose the international plot that delayed India's development of a cryogenic engine by at least a decade. It took four years for the CBI to exonerate Nambi, but his fight for justice to ensure action against the officers who faked the case and tortured him in custody continues.This book is as much a history of the early days of India's ambitious space programme as it is a record of one of the most sensational cases that enthralled the nation long before the era of online updates and 24-hour news cycles.";
+    const subjects = ["Science", "Technology", "Rocket"];
+    const pages = "372";
+    const ISBN = "9789386826268";
     const language = "English";
-    const edition = "1";
-    const copies = "20";
+    const edition = "2";
+    const copies = "1002";
 
     const id = uuidv4();
     const searchKeywords = [];
@@ -208,7 +178,7 @@ function HomePage() {
         </button> */}
         <Header
           className="home__header"
-          title="Happy reading, Srekaravarshan."
+          title={`Happy reading, ${user ? user.username : "Mate"}`}
         />
         <Heading className="home__heading">Popular Now</Heading>
         <div className="books__row">
@@ -221,7 +191,24 @@ function HomePage() {
         </div>
       </div>
       <div className="home__right">
-        <canvas ref={(el) => (canvas = el)} id="threejsCanvas"></canvas>
+        {have3D ? (
+          <canvas ref={(el) => (canvas = el)} id="threejsCanvas"></canvas>
+        ) : (
+          <img src="/assets/images/3d.png" alt="" className="sphere" />
+        )
+        }
+
+        <div className="switch__container">
+          <Heading2 className="switch__title">Use 3D</Heading2>
+          <label class="switch">
+            <input
+              type="checkbox"
+              value={have3D}
+              onChange={(e) => setHave3D(e.target.checked)}
+            />
+            <span class="slider round"></span>
+          </label>
+        </div>
       </div>
     </div>
   );

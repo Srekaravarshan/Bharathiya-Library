@@ -7,9 +7,8 @@ import ImageHeader from "../../components/typography/ImageHeader";
 import Heading2 from "../../components/typography/Heading2";
 import Caption from "../../components/typography/Caption";
 import { ReactComponent as LinkArrow } from "./../../assets/icons/arrow-right-up-line.svg";
-import { ReactComponent as BookmarkIcon } from "./../../assets/icons/bookmark-line.svg";
-import { ReactComponent as ShareIcon } from "./../../assets/icons/share-line.svg";
 import { ReactComponent as DownloadIcon } from "./../../assets/icons/skip-down-line.svg";
+import { Link } from "react-router-dom";
 
 function Settings() {
   const [{ basket, user }, dispatch] = useStateValue();
@@ -44,13 +43,14 @@ function Settings() {
             <Heading2 className="mb-2 highlight">- Elon Musk</Heading2>
           </div>
           <div className="bookdetail__buttons">
-            <button className="button bookdetail__button">
-              Start reading <LinkArrow className="bookdetail__button--icon" />
-            </button>
+            <a href="mailto:srekaravarshan@gmail.com" className=" link button bookdetail__button">
+              Email <LinkArrow className="bookdetail__button--icon" />
+            </a>
             <div className="bookdetail__actions">
-              <BookmarkIcon className="bookdetail__action--icon" />
-              <ShareIcon className="bookdetail__action--icon" />
+            <a target="_blank" href="\assets\Resume.pdf" className="download__link" download="Resume - Srekaravarshan">
               <DownloadIcon className="bookdetail__action--icon" />
+              PDF
+            </a>
             </div>
           </div>
         </div>

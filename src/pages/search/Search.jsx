@@ -11,43 +11,51 @@ import { useStateValue } from "../../StateProvider";
 function Search() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [sres, setSres] = useState({});
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [{}, dispatch] = useStateValue();
 
-    const handleOnChange = async (e) => {
-        setSearchTerm(e.target.value)
-      try {
-        const q = query(
-          collection(db, "books"),
-          where("searchKeywords", "array-contains", e.target.value.toLowerCase()),
-          limit(5)
-        );
-
-        const querySnapshot = await getDocs(q);
-
-        const results = querySnapshot.docs.map((doc) => doc.data().title);
-        setSuggestions(results);
-      } catch (error) {
-        console.log("Error searching books:", error);
-      }
-    };
-
-  const handleSearch = async () => {
+  const handleOnChange = async (e) => {
+    setSearchTerm(e.target.value);
     try {
-      console.log('heyyy')
       const q = query(
         collection(db, "books"),
-        where("searchKeywords", "array-contains", searchTerm.toLowerCase()),
-        where("temp_title", ">=", searchTerm.toLowerCase()),
-        where("temp_title", "<=", searchTerm.toLowerCase())
+        where("searchKeywords", "array-contains", e.target.value.toLowerCase()),
+        limit(5)
       );
 
       const querySnapshot = await getDocs(q);
-        const books = {}
-        const results = [];
+
+      const results = [];
+      const sre = {};
       querySnapshot.docs.map((doc) => {
-        books[doc.data().id] = doc.data()
+        sre[doc.id] = doc.data()
+        results.push(doc.data());
+      });
+      setSuggestions(results);
+      setSres({...sres, ...sre});
+    } catch (error) {
+      window.alert("Error searching books:", error);
+    }
+  };
+
+  const handleSuggestionClick = async (suggestion) => {
+    setSearchTerm(suggestion);
+    setSearchResults([]);
+    setSuggestions([]);
+
+    try {
+      const q = query(
+        collection(db, "books"),
+        where("title", "==", suggestion)
+      );
+
+      const querySnapshot = await getDocs(q);
+      const books = {};
+      const results = [];
+      querySnapshot.docs.map((doc) => {
+        books[doc.data().id] = doc.data();
         results.push(doc.data());
       });
       setSearchResults(results);
@@ -57,50 +65,14 @@ function Search() {
         books: books,
       });
     } catch (error) {
-      console.log("Error searching books:", error);
+      window.alert("Error searching books:", error);
     }
   };
 
-  const handleSuggestionClick = async (suggestion) => {
-    setSearchTerm(suggestion);
-    setSearchResults([]);
-    setSuggestions([]);
-    
-    try {
-        const q = query(
-          collection(db, "books"),
-          where("title", "==", suggestion)
-        );
-  
-        const querySnapshot = await getDocs(q);
-          const books = {}
-          const results = [];
-        querySnapshot.docs.map((doc) => {
-          books[doc.data().id] = doc.data()
-          results.push(doc.data());
-        });
-        setSearchResults(results);
-  
-        dispatch({
-          type: "ADD_BOOKS",
-          books: books,
-        });
-      } catch (error) {
-        console.log("Error searching books:", error);
-      }
-  };
-
-//   const handleOnChange = (e) => {
-//     // setSuggestions(["sre", "skre", "srree", "ssss", "Fantastic Mr Fox"]);
-//     // setSearchTerm(e.target.value);
-//     // console.log(suggestions);
-
-//   };
-
   function search(e) {
-    console.log('hello')
+    console.log("hello");
     if (e.key === "Enter") {
-      handleSearch();
+      // handleSearch();
     }
   }
 
@@ -108,9 +80,8 @@ function Search() {
     <div
       className="search page"
       onClick={(e) => {
-        console.log(showSuggestions);
         if (!e.target.classList.contains("no-close")) setShowSuggestions(false);
-          else setShowSuggestions(true)
+        else setShowSuggestions(true);
       }}
     >
       <div className="search__page">
@@ -130,16 +101,18 @@ function Search() {
           <div className="suggestions">
             {suggestions.map((suggestion) => (
               <li
+                key={suggestion.title}
                 className="suggestion"
-                onClick={() => handleSuggestionClick(suggestion)}
+                onClick={() => handleSuggestionClick(suggestion.title)}
               >
-                {suggestion}
+                {suggestion.title}
               </li>
             ))}
           </div>
         )}
+        <div className="center">
         <div className="result__books">
-          {searchResults.map((book) => (
+          {Object.values(sres).map((book) => (
             <Link to={`/books/${book.id}`} className="result__book">
               <img
                 src={book.cover_url}
@@ -150,8 +123,9 @@ function Search() {
             </Link>
           ))}
         </div>
-      </div>
     </div>
+      </div>
+      </div>
   );
 }
 

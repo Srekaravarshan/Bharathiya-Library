@@ -1,6 +1,6 @@
 
 .image-header {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     display: block;
     text-align: start;
     font-family: "Montserrat", sans-serif;
@@ -13,3 +13,9 @@
     -webkit-background-clip: text;
     margin-bottom: 20px;
   }
+
+@media screen and (min-width: 450px) {
+  .image-header {
+    font-size: 1.5rem;
+  }
+}

@@ -23,7 +23,7 @@ import Cart from "./pages/cart/Cart";
 import Search from "./pages/search/Search";
 
 function App() {
-  const [{ books }, dispatch] = useStateValue();
+  const [{ books, user }, dispatch] = useStateValue();
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -92,7 +92,7 @@ function App() {
             <Route
               path="cart"
               element={
-                <PrivateRoute isLoggedIn={authenticated}>
+                <PrivateRoute isLoggedIn={user}>
                   <Cart />
                 </PrivateRoute>
               }

@@ -12,6 +12,7 @@ import { useStateValue } from "../../StateProvider";
 import LoadingWidget from "../../components/widgets/LoadingWidget";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import Loading from "../loading/Loading";
 
 
 function Book() {
@@ -30,9 +31,6 @@ function Book() {
       );
       const book = bookData.data();
         setBook(book)
-        console.log('hhh')
-        console.log(bookData.data())
-        console.log(book)
         setLoading(false)
     }
 
@@ -41,11 +39,10 @@ function Book() {
       setLoading(false)
     } else {
       getBook()
-      console.log(book)
     }
   }, [loading])
   if (!book) {
-    return <LoadingWidget/>
+    return <Loading/>
   }
 
   const addToCart = () => {
@@ -55,7 +52,6 @@ function Book() {
       type: 'ADD_TO_CART',
       cart: map
     })
-    console.log(map)
   }
 
   return (

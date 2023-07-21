@@ -9,7 +9,6 @@
 
 .link {
   text-decoration: none;
-  
 }
 
 .logo {
@@ -44,7 +43,7 @@
   background-color: var(--accent);
   border: none;
   color: white;
-  font-size: 1rem;
+  font-size: 0.8rem;
   cursor: pointer;
   font-family: "AlbraSans";
   transition: 0.4s all;
@@ -64,7 +63,7 @@
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 12px;
 }
 
 /* Track */
@@ -74,14 +73,19 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: var(--primary);
+  background: var(--accent);
   border-radius: 10px;
   transition: 0.4s all;
-
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent);
+  background: var(--accent-pink);
 }
 
+
+@media screen and (min-width: 750px){
+  .button{
+    font-size: 1rem;
+  }
+}
